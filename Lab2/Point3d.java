@@ -31,5 +31,33 @@ public class Point3d{
         return zCord;
     }
 
+    public void setX(double x){
+        xCord = x;
+    }
+    public void setY(double y){
+        yCord = y;
+    }
+    public void setZ(double z){
+        zCord = z;
+    }
+
+    public boolean isCompare(Point3d obj2){
+
+        if (xCord == obj2.getX() && yCord == obj2.getY() && zCord == obj2.getZ() ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public double distanceTo(Point3d point2){
+
+        double dist = 0;
+
+        dist = Math.sqrt((point2.getX() - xCord)*(point2.getX() - xCord) 
+         +  (point2.getY() - yCord)*(point2.getY() - yCord)
+         +  (point2.getZ() - zCord)*(point2.getZ() - zCord));
+        return dist;
+    }
     
 }
