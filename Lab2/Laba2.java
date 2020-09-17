@@ -55,11 +55,13 @@ public class Laba2{
         point3.setY(console.nextDouble());
         point3.setZ(console.nextDouble());
         
+        /**Сравниваем точки */
         if(point1.isCompare(point2) || point1.isCompare(point3) || point2.isCompare(point3) ){
             System.out.println("points of equal");
             return;
         }
         
+        /**Выводим результаты подсчетов */
         System.out.println("Area = "+ String.format("%1.2f", computeArea(point1,point2,point3)).replace(',', '.'));
         System.out.println("Distance between point1 and point2 = "+ String.format("%1.2f", point1.distanceTo(point2)).replace(',', '.'));
         System.out.println("Distance between point1 and point3 = "+ String.format("%1.2f", point1.distanceTo(point3)).replace(',', '.'));
