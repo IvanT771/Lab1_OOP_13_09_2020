@@ -106,7 +106,7 @@ public class Task2{
         int curentStep = 0;
         boolean isStep = false;
         for(int i=0;i<step;i++){
-            if(isStep){
+            if(!isStep){
                 curentStep+=3;
             }else{
                 curentStep--;
@@ -142,7 +142,7 @@ public class Task2{
         System.out.println(isPrefix("automation","auto-"));
         System.out.println(isSuffix("arachnophobia","-phobia"));
         //Task 2.10
-        System.out.println(boxSeq(3));
+        System.out.println(boxSeq(2));
         
     }
 

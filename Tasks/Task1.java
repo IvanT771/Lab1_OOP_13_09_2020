@@ -1,5 +1,5 @@
 
-public class Main {
+public class Task1 {
 	//Task 1.1
 	public static int remainder(int a,int b) {
 		

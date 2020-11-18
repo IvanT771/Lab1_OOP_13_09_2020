@@ -1,5 +1,5 @@
 import java.util.Arrays;
-public class Task2{
+public class Task3{
 
 //Task 3.1 
     public static int solutions(double a,double b,double c){
@@ -48,7 +48,41 @@ public class Task2{
     }
 
     //Task 3.5
+    public static boolean isValidHexCode(String str){
+        if(str.length() != 7 || str.charAt(0) != '#'){return false;}
+        str = str.toUpperCase();
+        for(int i=1; i<str.length();i++){
+            if(
+                !(
+                (str.charAt(i) >= '0' && str.charAt(i) <= '9') ||
+                (str.charAt(i)>='A' && str.charAt(i)<='Z')
+                )
+              ){return false;}
+        }
+        return true;
+    }
 
+    //Task 3.6
+    public static int count(int[] mas){
+        if(mas.length == 1){return 1;}
+        if(!(mas.length >=2)){return 0;}
+        int buf = 1;
+        for(int i=1;i<mas.length;i++){
+            if(mas[i-1] != mas[i]){
+                buf++;
+            }
+        }
+        return buf;
+    }
+    public static boolean same(int[] mas1, int[] mas2){
+        
+        Arrays.sort(mas1);
+        Arrays.sort(mas2);
+
+       return (count(mas1) == count(mas2));
+
+        
+    }
 
 
     public static void main(String[] args) {
@@ -64,6 +98,13 @@ public class Task2{
         System.out.println(flipEndChars("Cat, dog, and mouse."));
         System.out.println(flipEndChars("ada"));
         System.out.println(flipEndChars("z"));
+        //Task 3.5
+        System.out.println(isValidHexCode("#CD5C5C"));
+        System.out.println(isValidHexCode("#CD5C58C"));
+        //Task 3.6
+        int[] a = {2,3,4};
+        int[] b = {1,2,3,3,1};
+        System.out.println(same(a, b));
     }
 
 
