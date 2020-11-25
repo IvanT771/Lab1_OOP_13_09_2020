@@ -105,7 +105,35 @@ public class Task3{
         if(b+c == n){return true;}
         return false;
     }
+    //Task 3.8
+    public static String longestZero(String str){
+        if (str.indexOf("0") == -1) return " ";
+        int[] maxCountZero = new int[2]; // 0 - count 1- index input
+        int countZero = 0;
+        for(int i=0; i<str.length();i++){
 
+            if(str.charAt(i) == '0'){
+                countZero++;
+            }else{
+                countZero =0;
+            }
+            if (countZero > maxCountZero[0]){
+                maxCountZero[0] = countZero;
+                maxCountZero[1] = i;
+            }
+        }
+
+        String newStr = "";
+
+        for(int i = maxCountZero[1]; i>=0; i--){
+            if(str.charAt(i) == '0'){
+                newStr +=str.charAt(i);
+            }else{
+                break;
+            }
+        }
+        return newStr;
+    }
 
     public static void main(String[] args) {
 
@@ -130,6 +158,10 @@ public class Task3{
         //Task 3.7
         System.out.println(isKaprekar(3));
         System.out.println(isKaprekar(297));
+        //Task 3.8
+        System.out.println(longestZero("01100001011000"));
+        System.out.println(longestZero("100100100"));
+        System.out.println(longestZero("11111"));
     }
 
 
