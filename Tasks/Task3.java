@@ -84,6 +84,28 @@ public class Task3{
         
     }
 
+    //Task 3.7
+    
+    public static boolean isKaprekar(int n){
+        int a = n*n;
+        int b = 0;
+        int c = 0;
+        String str = Integer.toString(a);
+        String num = "0";
+        for(int i = 0; i<(int)(str.length()/2); i++){
+            num+=str.charAt(i);
+        }
+        b = Integer.parseInt(num.trim());
+        num = "0";
+        for(int i = (int)str.length()/2; i<str.length(); i++){
+            num+=str.charAt(i);
+        }
+        c= Integer.parseInt(num.trim());
+        num = "0";
+        if(b+c == n){return true;}
+        return false;
+    }
+
 
     public static void main(String[] args) {
 
@@ -105,6 +127,9 @@ public class Task3{
         int[] a = {2,3,4};
         int[] b = {1,2,3,3,1};
         System.out.println(same(a, b));
+        //Task 3.7
+        System.out.println(isKaprekar(3));
+        System.out.println(isKaprekar(297));
     }
 
 
