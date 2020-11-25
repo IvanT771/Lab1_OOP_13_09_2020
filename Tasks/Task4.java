@@ -29,12 +29,30 @@ class Task4{
 	return newStr;	
 	}
 	//Task 4.2
+	public static String split(String str){
+	
+	int count = 0;
+	String newStr = "";
+	for(int i=0;i<str.length();i++){
+		if(str.charAt(i) == '('){
+		count++;
+		newStr+=str.charAt(i);}
+		else{
+		count--;
+		newStr+=str.charAt(i);}
+		if(count<=0)newStr+="\r\n";
+		}
+	     	return newStr;}
 	
 
 	public static void main(String[] args){
-	//Task 4.1	
+	//Task 4.1
+	System.out.println("Task 4.1");	
 	System.out.println(Bessie(10,7,"hello my name is Bessie and this is my essay"));
-		
+	//Task 4.2
+	System.out.println("Task 4.2");
+	System.out.println(split("(())(())((()))"));
+	System.out.println(split("((()))(())()()(()())"));	
 	}
 	
 
