@@ -150,13 +150,15 @@ class Task4{
 	for(int i=0; i<str.length();i++){
 		count = 1;
 		int curent = i;
+		boolean flag = false;
 			for(int j=i+1; j<str.length();j++){
-			if(str.charAt(i) != str.charAt(j)){i = j-1; break;}
+			if(str.charAt(i) != str.charAt(j)){i = j-1; flag = false; break;}
 			else{count++;}
+			flag = true;
 			}
-		if(count>1){strResult+=""+str.charAt(curent)+"*"+count;}else{
-		
-		strResult+=""+str.charAt(curent);}
+		if(count>1){strResult+=""+str.charAt(curent)+"*"+count;}
+		else{strResult+=""+str.charAt(curent);}
+		if(flag){break;}
 	}
 	return strResult;
 	}
