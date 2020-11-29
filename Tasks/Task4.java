@@ -202,6 +202,36 @@ class Task4{
 	return mapWord1.equals(mapWord2);	
 	
 	}
+	
+	//Task 4.9
+	public static long numberSearch(int quantity, long number){
+	long num = 0;
+	int count = 1;
+		while(number > 0){
+			if(num == number %10){
+			count++;
+			if(count == quantity){return num;}
+			}else{ num = number%10; count = 1;}
+			
+			number = number / 10;
+		}
+	return -1;	
+	}
+	public static boolean trouble(long num1, long num2){
+	 return (numberSearch(3,num1) == numberSearch(2,num2) && numberSearch(3,num1) != -1);
+	}
+	
+	public static int countUniqueBooks(String str, char ch){
+	boolean flag = false;
+	HashSet<String> count = new HashSet<String>();
+	str = str.toUpperCase();
+	
+		for(int i=0;i<str.length();i++){
+		if(str.charAt(i) == ch){flag=!flag; continue;}
+		if (flag){count.add(""+str.charAt(i));}	
+		}
+	return count.size();
+	}
 
 	public static void main(String[] args){
 	//Task 4.1
@@ -243,6 +273,17 @@ class Task4{
 	System.out.println(doesRhyme("Sam I am!", "Green eggs and ham."));
 	System.out.println(doesRhyme("Sam I am!", "Green eggs and HAM."));
 	System.out.println(doesRhyme("and frequently do?", "you gotta move."));
+	//Task 4.9
+	System.out.println("Task 4.9");
+	System.out.println(trouble(451999277, 417722899));
+	System.out.println(trouble(1222345,12345));
+	System.out.println(trouble(666789,12345667));
+	//Task 4.10
+	System.out.println("Task 4.10");
+	System.out.println(countUniqueBooks("AZYWABBCATTTA", 'A'));
+	System.out.println(countUniqueBooks("$AA$BBCATT$C$$B$", '$'));
+	System.out.println(countUniqueBooks("ZZABCDEF", 'Z'));
+	
 	}
 	
 
