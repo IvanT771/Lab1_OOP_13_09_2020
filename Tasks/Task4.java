@@ -162,6 +162,46 @@ class Task4{
 	}
 	return strResult;
 	}
+	
+	//Task 4.8
+	public static String wordAdd(String str){
+	str = str.toLowerCase();
+	String word = "";
+		for(int i = str.length()-1;i>=0;i--){
+		if(str.charAt(i) >=97 && str.charAt(i) <=122){
+		word+=str.charAt(i);}else if(str.charAt(i) == ' '){break;}
+			}
+	return word;
+	}
+	public static boolean compareTwoLists(ArrayList list, ArrayList list2){
+	if(list.size() != list2.size()){return false;}
+	for(int i = 0; i < list.size(); i++){
+       	
+               if(!(list.get(i).equals(list2.get(i)))){return false;}
+        }
+        return true;
+    }    
+
+	public static boolean doesRhyme(String str1, String str2){
+	String[] glas = {"a","e","o","q","i","u","j","y"};
+	ArrayList<String> mapWord1 = new ArrayList<String>();
+	ArrayList<String> mapWord2 = new ArrayList<String>();
+	String wordEnd1 = wordAdd(str1);
+	String wordEnd2 = wordAdd(str2);
+		for(String g:glas){
+			if(wordEnd1.indexOf(g) != -1){
+			mapWord1.add(g);}
+			}
+		for(String g:glas){
+			if(wordEnd2.indexOf(g) != -1){
+			mapWord2.add(g);}
+			}
+	Collections.sort(mapWord1);
+	Collections.sort(mapWord2);
+	//return compareTwoLists(mapWord1,mapWord2);	
+	return mapWord1.equals(mapWord2);	
+	
+	}
 
 	public static void main(String[] args){
 	//Task 4.1
@@ -198,7 +238,11 @@ class Task4{
 	System.out.println(toStarShorthand("abbccc"));
 	System.out.println(toStarShorthand("77777geff"));
 	System.out.println(toStarShorthand("abc"));
-	
+	//Task 4.8
+	System.out.println("Task 4.8");
+	System.out.println(doesRhyme("Sam I am!", "Green eggs and ham."));
+	System.out.println(doesRhyme("Sam I am!", "Green eggs and HAM."));
+	System.out.println(doesRhyme("and frequently do?", "you gotta move."));
 	}
 	
 
