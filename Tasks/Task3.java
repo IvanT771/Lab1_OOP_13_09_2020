@@ -134,34 +134,85 @@ public class Task3{
         }
         return newStr;
     }
+    //Task 3.9
+    public static boolean isPrime(int b){
 
+         for(int i=2; i<b;i++){
+            if(b%i == 0){return false;}
+        }
+        return true;
+    }
+    public static int nextPrime(int a){
+        final int maxIteration = 10000;
+
+        int i = 0;
+        while(!(isPrime(a)) && i <= maxIteration){
+            a++;  
+            i++; 
+        }
+        return a;
+    }
+    //Task 3.10
+    public static boolean rightTriangle(int x,int y,int z){
+        int t = 0;
+        if (x>=y && x>=z){
+            t = z;
+            z = x;
+            x = t;
+        }else 
+        if(y>=x && y>=z){
+            t = z;
+            z = y;
+            y = t;
+        }
+
+        return (x*x + y*y == z*z);
+    }
     public static void main(String[] args) {
 
         //Task 3.1
+        System.out.println("Task 3.1");
         System.out.println(solutions(1,0,-1));
         //Task 3.2
+        System.out.println("Task 3.2");
         System.out.println(findZip("all zip files are zipped"));
         System.out.println(findZip("all zip files are compressed"));
         //Task 3.3
+        System.out.println("Task 3.3");
         System.out.println(checkPerfect(6));
         //Task 3.4
+        System.out.println("Task 3.4");
         System.out.println(flipEndChars("Cat, dog, and mouse."));
         System.out.println(flipEndChars("ada"));
         System.out.println(flipEndChars("z"));
         //Task 3.5
+        System.out.println("Task 3.5");
         System.out.println(isValidHexCode("#CD5C5C"));
         System.out.println(isValidHexCode("#CD5C58C"));
         //Task 3.6
+        System.out.println("Task 3.6");
         int[] a = {2,3,4};
         int[] b = {1,2,3,3,1};
         System.out.println(same(a, b));
         //Task 3.7
+        System.out.println("Task 3.7");
         System.out.println(isKaprekar(3));
         System.out.println(isKaprekar(297));
         //Task 3.8
+        System.out.println("Task 3.8");
         System.out.println(longestZero("01100001011000"));
         System.out.println(longestZero("100100100"));
         System.out.println(longestZero("11111"));
+        //Task 3.9
+        System.out.println("Task 3.9");
+        System.out.println(nextPrime(12));
+        System.out.println(nextPrime(24));
+        System.out.println(nextPrime(11));
+        //Task 3.10
+        System.out.println(rightTriangle(3,4,5));
+        System.out.println(rightTriangle(145,105,100));
+        System.out.println(rightTriangle(70, 130, 110));
+
     }
 
 
