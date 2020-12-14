@@ -1,4 +1,7 @@
-
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.nio.charset.StandardCharsets;
+import java.math.BigInteger;
 import java.util.*;
 class Task5{
 
@@ -179,7 +182,42 @@ public static boolean validateCard(String number){
     }
     return (10 - (sum%10) == flag);
 }
-//Task 5.7
+//Task 5.7 -> DopTask5_7
+
+//Task 5.8
+public static String getSha256Hash(String base) {
+ try{
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(base.getBytes("UTF-8"));
+        StringBuffer hexString = new StringBuffer();
+
+        for (int i = 0; i < hash.length; i++) {
+            String hex = Integer.toHexString(0xff & hash[i]);
+            if(hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
+        }
+
+        return hexString.toString();
+    } catch(Exception ex){
+       throw new RuntimeException(ex);
+    }
+}
+//Task 5.9
+public static String correctTitle(String str){
+    final String flag = "the of in a on ";
+    str = str.toLowerCase();
+    String[] word = str.split(" ");
+    String result1 = "";
+
+    for(String c:word){
+        if(flag.indexOf(c) == -1){
+            c = c.substring(0,1).toUpperCase() + c.substring(1,c.length());
+        }
+        result1+=""+c+" ";
+    } 
+    return result1;
+}
+//Task 5.10
 
 
 public static void main(String[] args){
@@ -211,7 +249,26 @@ System.out.println(sameVowelGroup("hops","chuff","bot","bottom"));
 System.out.println("Task5.6");
 System.out.println(validateCard("1234567890123456"));
 System.out.println(validateCard("1234567890123452"));
-
+//Task 5.7
+DopTask5_7 con12 = new DopTask5_7();
+System.out.println("Task5.7");
+System.out.println(con12.convert(123));
+System.out.println(con12.convert(1));
+System.out.println(con12.convert(999));
+System.out.println(con12.convert(9876));
+//Task 5.8
+System.out.println("Task5.8");
+System.out.println(getSha256Hash("password123"));
+//Task 5.9
+System.out.println("Task5.9");
+System.out.println(correctTitle("jOn SnoW, kINg IN thE noRth." ));
+System.out.println(correctTitle("sansa stark, lady of winterfell." ));
+System.out.println(correctTitle("TYRION LANNISTER, HAND OF THE QUEEN." ));
+//Task 5.10
+System.out.println("Task5.10");
+System.out.println("Task5.10");
+System.out.println("Task5.10");
+System.out.println("Task5.10");
 }
 
 
