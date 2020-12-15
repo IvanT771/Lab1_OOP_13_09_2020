@@ -218,7 +218,61 @@ public static String correctTitle(String str){
     return result1;
 }
 //Task 5.10
+//Шаг 1: проверяем, является ли число гексогональной решоткой 
+public static boolean isGeksogonal(int n){
 
+    int count = 1;
+    for(int i=1; i<n;i++){
+        if (count == n){return true;}
+        if(count>n){return false;}
+        count+=6*i;
+        
+    }
+    return false;
+}
+//Шаг 2: определяем кол-во строк 
+public static int countColumns(int n){
+    int count = 1;
+    int index = 0;
+    for(int i=1; i<n;i++){
+        if(count == n){index = i; break;}
+        count+=6*i;
+    }
+
+    return (3 + 2*(index - 2));
+}
+//Шаг 3: определяем кол-во точек в каждой строчке 
+public static int[] countPoint(int n){
+    
+    int[] columns = new int[n];
+    int h = (int) java.lang.Math.floor(n / 2);
+
+    for (int i = 0; i < n; i++) {
+        columns[i] = n - java.lang.Math.abs(i - h);
+    }
+
+    return columns;
+}
+public static String hexLattice(int n){
+    if(n==1){return "o";}
+    if(!isGeksogonal(n)){return "Invalid";}
+
+    int[] columns = countPoint(countColumns(n));
+    if(columns.length < 1){return "Invalid";}  
+
+    int max = columns[0]; //находим максимальное число точек, для определения кол-во отступов
+    for (int i = 1; i < columns.length; i++) max = Math.max(max, columns[i]);
+
+    String result = "";
+    for(int i =0; i < columns.length; i++){
+        int space = max - columns[i]; //кол-во пробелов от начала строки
+        for(int j=0; j<space;j++){result+=" ";}
+        for(int t=0; t<columns[i];t++){result+="o ";} //раставляем точки в строке
+        result+="\r\n";
+    }
+
+return result;
+}
 
 public static void main(String[] args){
 
@@ -266,9 +320,11 @@ System.out.println(correctTitle("sansa stark, lady of winterfell." ));
 System.out.println(correctTitle("TYRION LANNISTER, HAND OF THE QUEEN." ));
 //Task 5.10
 System.out.println("Task5.10");
-System.out.println("Task5.10");
-System.out.println("Task5.10");
-System.out.println("Task5.10");
+System.out.println(hexLattice(7));
+System.out.println(hexLattice(19));
+System.out.println(hexLattice(37));
+System.out.println(hexLattice(5));
+
 }
 
 
