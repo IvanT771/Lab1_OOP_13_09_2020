@@ -22,7 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.SwingWorker;
 
 /** Swing GUI for displaying fractals on a complex plane */
-public class FractalExplorer {
+public class FractalExplorer extends Thread{
 	
 	/** display width and height in pixels */
 	private int size;
@@ -148,17 +148,17 @@ public class FractalExplorer {
 	}
 	
 	
-	/** handles mouse click events by zooming in */
+
 	private class MouseHandler extends MouseAdapter {
 		
-		/** zoom in around mouse click and draw */
+		
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if (nRowsRemaining > 0) { // busy, not done drawing!
-				return; // ignore mouse click
+			if (nRowsRemaining > 0) { 
+				return; // игнорим нажатия мыши 
 			}
 
-			// get mouse coordinates
+			// получаем координаты мыши
 			double x = FractalGenerator.getCoord(range.x, range.x + range.width, 
 												 size, e.getX());
 			double y = FractalGenerator.getCoord(range.y, range.y + range.height, 
@@ -166,38 +166,37 @@ public class FractalExplorer {
 			
 			// zoom in
 			fractal.recenterAndZoomRange(range, x, y, 0.5);
-			drawFractal();
+			drawFractal(); //в потоке 
 		}
 	}
 	
 
-	/** enable or disable UI components */
+
 	private void enableUI(boolean val) {
 		saveButton.setEnabled(val);
 		resetButton.setEnabled(val);
 		fractalChooser.setEnabled(val);
 	}
 
-	/** SwingWorker to compute color from costly number of iterations in background */
+	//реализация многопоточности 
 	private class FractalWorker extends SwingWorker<Void, Void> {
-		/** the y coordinate */
+
 		private int y;
 
-		/** the row of colors computed */
+	
 		private int[] colors;
 
-		/** construct worker for a row number, i.e. y coordinate */
 		FractalWorker(int y) {
 			this.y = y;
 		}
 
-		/** compute number of iterations for a row and store */
+		
 		@Override
 		public Void doInBackground() {
 			double yCoord = FractalGenerator.getCoord(range.y, range.y + range.height, size, y);
 			colors = new int[size];
 
-			// compute color for row based on number of fractal iterations until divergence
+			
 			for (int x=0; x<size; x++) {
 				double xCoord = FractalGenerator.getCoord(range.y, range.y + range.height, size, x);
 				colors[x] = fractal.numIterations(xCoord, yCoord);
@@ -205,27 +204,26 @@ public class FractalExplorer {
 			return null;
 		}
 
-		/** paint color from number of iterations and update display */
+		
 		@Override
 		protected void done() {
 
-			// loop over each column of pixels
+		
 			for (int x=0; x<size; x++) {
 				if (colors[x] == -1) {// black
 					display.drawPixel(x, y, 0); // 0 = black
 //					display.drawPixel(x, y, Color.BLACK.getRGB());
 				}
-				else { // smooth color based on number of iterations 
+				else { 
 					float hue = 0.7f + (float) colors[x] / 200f;
 					display.drawPixel(x, y, Color.HSBtoRGB(hue, 1f, 1f));
 				}
 			}
 
-			// update display for row y, width=size, height=1
-			// note: unused first parameter set to 0
+		
 			display.repaint(0, y, size, 1);
 
-			// enable UI when done drawing all rows
+		
 			nRowsRemaining--;
 			if (nRowsRemaining == 0) {
 				enableUI(true);
@@ -233,27 +231,33 @@ public class FractalExplorer {
 		}
 	}
 
+	 private Thread t;
 
-	/** helper to render each pixel and display */
+	 public void run() {drawFractal();}
+	 public void start () {
+ 		if (t == null) {
+         t = new Thread (this, "threadName");
+         t.start ();}
+
+	 }
 	private void drawFractal() {
-		enableUI(false); // disable, we're busy!
+
+
+		enableUI(false); 
 		nRowsRemaining = size;
 
 		// loop over each row of pixels
 		for (int y=0; y<size; y++) {
 
-			// compute color on background thread then paint
+			
 			FractalWorker w = new FractalWorker(y);
 			w.execute();
-			// enable UI only when worker is all done in FractalWorker.done()
+			
 		}
 	}
 	
 	
-    /**
-     * Entry-point for the application.  No command-line arguments are
-     * recognized at this time.
-     **/
+  
 	public static void main(String[] args) {
 		FractalExplorer explorer = new FractalExplorer(800);
     	explorer.createAndShowGUI();			

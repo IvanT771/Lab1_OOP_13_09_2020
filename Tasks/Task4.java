@@ -220,7 +220,7 @@ class Task4{
 	public static boolean trouble(long num1, long num2){
 	 return (numberSearch(3,num1) == numberSearch(2,num2) && numberSearch(3,num1) != -1);
 	}
-	
+	//Task 4.10
 	public static int countUniqueBooks(String str, char ch){
 	boolean flag = false;
 	HashSet<String> count = new HashSet<String>();
